@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Pokedex
 {
     enum attack {Attack, SP_Attack, Defense, SP_Defense}
-    struct Struct
+    struct Pokemon
     {
         string Name;
         string Type;
@@ -37,6 +37,7 @@ namespace Pokedex
             {
                 StreamReader inFile = new StreamReader("Pokemon.txt");
                 string S = inFile.ReadToEnd();
+                inFile.Close();
             }
         }
         private void SaveButton_Click(object sender, EventArgs e)
@@ -55,16 +56,20 @@ namespace Pokedex
             DebugBox.Text += GenerationUp.Value;
             DebugBox.Text += " | ";
             DebugBox.Text += AttackCombo.Text;
-            DebugBox.Text += " | ";
             if (LegendaryCheck.Checked == true)
             {
+                DebugBox.Text += " | ";
                 DebugBox.Text += LegendaryCheck.Text;
             }
-            DebugBox.Text += " | ";
             if (ShinyCheck.Checked == true)
             {
+                DebugBox.Text += " | ";
                 DebugBox.Text += ShinyCheck.Text;
             }
+
+            StreamWriter outfile = new StreamWriter("Pokemon.txt");
+            outfile.Write(DebugBox.Text);
+            outfile.Close();
         }
     }
 }
